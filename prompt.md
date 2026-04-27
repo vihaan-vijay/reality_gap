@@ -1,0 +1,3 @@
+after initiating the assessment there no loading bar so the user cannot see what is happening because the page is still so add a loading animation so that user can know that the page is loading..
+
+you are a UI/UX designer and a full stack developer analyse the total website and change what ever you think that is not good and make the total website look as great as possible that only includes "UI/UX, full stack development". but change only the needs of the website dont work or modify the supabase, clerk and AI model.
