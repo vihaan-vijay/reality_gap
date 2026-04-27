@@ -3,157 +3,162 @@
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/navbar";
 import { SignInButton, useUser } from "@clerk/nextjs";
-import { Brain, Zap, Target, BarChart3, ChevronRight, Star } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import Link from "next/link";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const stagger = {
-  visible: { transition: { staggerChildren: 0.15 } },
-};
+const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
+const stagger = { visible: { transition: { staggerChildren: 0.12 } } };
 
 export default function HomePage() {
   const { isSignedIn } = useUser();
 
   return (
-    <div style={{ minHeight: "100vh", overflowX: "hidden" }}>
+    <div style={{ background: "#000", minHeight: "100vh" }}>
       <Navbar />
 
-      {/* Hero */}
-      <section className="animated-bg" style={{ position: "relative", padding: "5rem 1.5rem 4rem" }}>
-        {/* Floating orbs */}
+      {/* ── HERO ── */}
+      <section style={{
+        paddingTop: "160px",
+        paddingBottom: "100px",
+        paddingLeft: "1.5rem",
+        paddingRight: "1.5rem",
+        textAlign: "center",
+        position: "relative",
+        overflow: "hidden",
+      }}>
+        {/* subtle radial glow behind headline */}
         <div style={{
-          position: "absolute", top: "10%", left: "5%", width: 300, height: 300,
-          borderRadius: "50%", background: "radial-gradient(circle, rgba(124,108,255,0.15) 0%, transparent 70%)",
-          filter: "blur(40px)", pointerEvents: "none"
-        }} />
-        <div style={{
-          position: "absolute", bottom: "10%", right: "5%", width: 400, height: 400,
-          borderRadius: "50%", background: "radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%)",
-          filter: "blur(40px)", pointerEvents: "none"
+          position: "absolute",
+          top: "30%", left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 700, height: 400,
+          background: "radial-gradient(ellipse, rgba(109,40,232,0.18) 0%, transparent 70%)",
+          pointerEvents: "none",
         }} />
 
-        <div style={{ maxWidth: "900px", margin: "0 auto", textAlign: "center", position: "relative" }}>
-          <motion.div initial="hidden" animate="visible" variants={stagger}>
-            <motion.div variants={fadeUp}>
-              <span className="badge badge-high" style={{ marginBottom: "1.5rem", display: "inline-flex" }}>
-                🧠 AI-Powered Skill Verification
-              </span>
-            </motion.div>
-
-            <motion.h1 variants={fadeUp} style={{
-              fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              fontWeight: 800,
-              lineHeight: 1.1,
-              letterSpacing: "-0.03em",
-              marginBottom: "1.5rem",
-              color: "hsl(var(--foreground))",
-            }}>
-              Stop Living in a{" "}
-              <span className="gradient-text">Skill Illusion</span>
-            </motion.h1>
-
-            <motion.p variants={fadeUp} style={{
-              fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
-              color: "hsl(var(--muted-foreground))",
-              maxWidth: "600px",
-              margin: "0 auto 2.5rem",
-              lineHeight: 1.7,
-            }}>
-              AI tools made you feel expert. RealityGap measures the{" "}
-              <strong style={{ color: "hsl(var(--foreground))" }}>actual gap</strong> between what you
-              think you know and what you can genuinely execute. Get your reality check now.
-            </motion.p>
-
-            <motion.div variants={fadeUp} style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-              {isSignedIn ? (
-                <Link href="/assess" className="btn-primary neon-glow" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  Start Assessment <ChevronRight size={18} />
-                </Link>
-              ) : (
-                <SignInButton mode="modal">
-                  <button className="btn-primary neon-glow" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    Get Your Reality Check <ChevronRight size={18} />
-                  </button>
-                </SignInButton>
-              )}
-              <a href="#how-it-works" className="btn-secondary" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                See How It Works
-              </a>
-            </motion.div>
+        <motion.div initial="hidden" animate="visible" variants={stagger} style={{ position: "relative" }}>
+          {/* Pill badge */}
+          <motion.div variants={fadeUp} style={{ marginBottom: "2.5rem", display: "flex", justifyContent: "center" }}>
+            <span className="pill-badge">
+              <Zap size={11} style={{ color: "#a78bfa" }} />
+              AI-Powered Reality Check
+            </span>
           </motion.div>
-        </div>
+
+          {/* Main headline */}
+          <motion.h1 variants={fadeUp} style={{
+            fontSize: "clamp(4rem, 12vw, 9rem)",
+            fontWeight: 900,
+            lineHeight: 0.95,
+            letterSpacing: "-0.03em",
+            textTransform: "uppercase",
+            marginBottom: "0.1em",
+            color: "#fff",
+          }}>
+            Uncover The
+          </motion.h1>
+          <motion.h1 variants={fadeUp} className="gradient-text" style={{
+            fontSize: "clamp(4rem, 12vw, 9rem)",
+            fontWeight: 900,
+            lineHeight: 0.95,
+            letterSpacing: "-0.03em",
+            textTransform: "uppercase",
+            marginBottom: "2rem",
+          }}>
+            Skill Gap
+          </motion.h1>
+
+          {/* Sub-headline */}
+          <motion.p variants={fadeUp} style={{
+            maxWidth: "520px",
+            margin: "0 auto 2.75rem",
+            fontSize: "clamp(0.9rem, 2vw, 1.05rem)",
+            color: "rgba(255,255,255,0.55)",
+            lineHeight: 1.75,
+          }}>
+            The Dunning-Kruger effect is real. RealityGap uses advanced LLMs to dissect
+            your expertise and show you exactly where you stand compared to industry benchmarks.
+          </motion.p>
+
+          {/* CTA buttons */}
+          <motion.div variants={fadeUp} style={{ display: "flex", gap: "0.85rem", justifyContent: "center", flexWrap: "wrap" }}>
+            {isSignedIn ? (
+              <Link href="/assess" className="btn-primary" style={{ textDecoration: "none" }}>
+                Test Your Limits <ArrowRight size={15} />
+              </Link>
+            ) : (
+              <SignInButton mode="modal">
+                <button className="btn-primary">
+                  Test Your Limits <ArrowRight size={15} />
+                </button>
+              </SignInButton>
+            )}
+            <a href="#how-it-works" className="btn-outline">
+              The Methodology
+            </a>
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* Stats bar */}
-      <section style={{ borderTop: "1px solid hsl(var(--border))", borderBottom: "1px solid hsl(var(--border))", padding: "2rem 1.5rem" }}>
-        <div style={{ maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "2rem", textAlign: "center" }}>
+      {/* ── STATS ── */}
+      <section style={{
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        padding: "3rem 1.5rem",
+      }}>
+        <div style={{ maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "2rem", textAlign: "center" }}>
           {[
-            { value: "73%", label: "Developers overestimate their skills" },
-            { value: "4.3x", label: "Avg gap between claimed vs actual" },
-            { value: "10 min", label: "To get your full reality report" },
-          ].map((stat) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="gradient-text" style={{ fontSize: "2.5rem", fontWeight: 800 }}>{stat.value}</div>
-              <div style={{ fontSize: "0.85rem", color: "hsl(var(--muted-foreground))", marginTop: "0.25rem" }}>{stat.label}</div>
+            { value: "73%", label: "Developers overestimate skills" },
+            { value: "4.3×", label: "Avg claimed vs actual gap" },
+            { value: "10 min", label: "To get your full report" },
+          ].map((s) => (
+            <motion.div key={s.label} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="gradient-text" style={{ fontSize: "2.75rem", fontWeight: 900, letterSpacing: "-0.03em" }}>{s.value}</div>
+              <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.4)", marginTop: "0.35rem", letterSpacing: "0.04em" }}>{s.label}</div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* How it works */}
-      <section id="how-it-works" style={{ padding: "5rem 1.5rem" }}>
+      {/* ── METHODOLOGY ── */}
+      <section id="how-it-works" style={{ padding: "6rem 1.5rem" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 700, marginBottom: "1rem" }}>
-              How <span className="gradient-text">RealityGap</span> Works
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: "4rem" }}>
+            <p className="section-label" style={{ marginBottom: "1rem" }}>The Methodology</p>
+            <h2 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 900, letterSpacing: "-0.03em", textTransform: "uppercase", lineHeight: 1 }}>
+              Five Stages of<br />
+              <span className="gradient-text">Truth</span>
             </h2>
-            <p style={{ color: "hsl(var(--muted-foreground))", maxWidth: "500px", margin: "0 auto" }}>
-              Five steps to your honest skill reality check
-            </p>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
             {[
-              { icon: <Target size={28} />, step: "01", title: "Claim Your Skill", desc: "Select the skill, domain, and sub-domain you want to be assessed on. Choose your preferred question type." },
-              { icon: <Brain size={28} />, step: "02", title: "AI Generates Challenges", desc: "Llama 3.3-70B creates unseen, adaptive problems, reasoning questions, and explain-your-thinking prompts." },
-              { icon: <Zap size={28} />, step: "03", title: "Behavioral Analysis", desc: "System tracks time taken, retries, hint usage, and error patterns — not just right vs wrong." },
-              { icon: <BarChart3 size={28} />, step: "04", title: "Gap Score Calculated", desc: "Your claimed level vs actual demonstrated ability — measured precisely and objectively." },
-              { icon: <Star size={28} />, step: "05", title: "Detailed AI Report", desc: "Get your rating, pie chart breakdown, areas to focus on, and a straight-talking motivational message." },
-            ].map((item, i) => (
+              { num: "01", title: "Claim Your Skill", desc: "Select the skill, domain, and sub-domain. State your confidence level from 1–10." },
+              { num: "02", title: "AI Generates Challenges", desc: "Llama 3.3-70B creates adaptive problems, reasoning questions, and explain-your-thinking prompts specific to your domain." },
+              { num: "03", title: "Behavioral Analysis", desc: "The system tracks time per question, retry attempts, hint usage, and error patterns — not just right vs wrong." },
+              { num: "04", title: "Gap Score Calculated", desc: "Your claimed level is measured against actual demonstrated ability to produce a precise confidence gap score." },
+              { num: "05", title: "Detailed AI Report", desc: "Receive your rating, skill breakdown chart, focus areas, and a direct motivational message — no sugarcoating." },
+            ].map((step, i) => (
               <motion.div
                 key={i}
-                className="glass-card hover-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                style={{ padding: "2rem" }}
+                transition={{ delay: i * 0.08 }}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "80px 1fr",
+                  gap: "2rem",
+                  alignItems: "start",
+                  padding: "2rem 0",
+                  borderBottom: "1px solid rgba(255,255,255,0.06)",
+                  cursor: "default",
+                }}
               >
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem" }}>
-                  <div style={{
-                    background: "linear-gradient(135deg, rgba(124,108,255,0.2), rgba(168,85,247,0.2))",
-                    border: "1px solid rgba(124,108,255,0.3)",
-                    borderRadius: "12px",
-                    padding: "0.75rem",
-                    color: "#a78bfa",
-                    flexShrink: 0,
-                  }}>
-                    {item.icon}
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "0.7rem", fontWeight: 700, color: "#7c6cff", letterSpacing: "0.1em", marginBottom: "0.25rem" }}>STEP {item.step}</div>
-                    <h3 style={{ fontWeight: 600, marginBottom: "0.5rem", fontSize: "1.05rem" }}>{item.title}</h3>
-                    <p style={{ color: "hsl(var(--muted-foreground))", fontSize: "0.875rem", lineHeight: 1.6 }}>{item.desc}</p>
-                  </div>
+                <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "rgba(255,255,255,0.2)", letterSpacing: "0.1em", paddingTop: "0.2rem" }}>{step.num}</span>
+                <div>
+                  <h3 style={{ fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.5rem", letterSpacing: "-0.01em" }}>{step.title}</h3>
+                  <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>{step.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -161,26 +166,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ padding: "5rem 1.5rem", textAlign: "center" }}>
-        <div className="glass-card neon-glow-purple" style={{ maxWidth: "700px", margin: "0 auto", padding: "4rem 2rem" }}>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🎯</div>
-            <h2 style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)", fontWeight: 700, marginBottom: "1rem" }}>
-              Are you really as good as you think?
+      {/* ── CTA ── */}
+      <section style={{ padding: "6rem 1.5rem", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div style={{ maxWidth: "700px", margin: "0 auto", textAlign: "center" }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <p className="section-label" style={{ marginBottom: "1.5rem" }}>Ready?</p>
+            <h2 style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 900, letterSpacing: "-0.03em", textTransform: "uppercase", lineHeight: 1, marginBottom: "1.5rem" }}>
+              Face Your<br /><span className="gradient-text">Reality</span>
             </h2>
-            <p style={{ color: "hsl(var(--muted-foreground))", marginBottom: "2rem", lineHeight: 1.7 }}>
-              Stop guessing. Get data. RealityGap gives you an honest, AI-generated
-              breakdown of where you actually stand — in under 10 minutes.
+            <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "1rem", lineHeight: 1.7, marginBottom: "2.5rem" }}>
+              Stop assuming. Start knowing. Get an honest, data-driven breakdown of where you actually stand — in under 10 minutes.
             </p>
             {isSignedIn ? (
-              <Link href="/assess" className="btn-primary neon-glow" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
-                Take the Free Test Now <ChevronRight size={18} />
+              <Link href="/assess" className="btn-primary" style={{ textDecoration: "none" }}>
+                Start Your Assessment <ArrowRight size={15} />
               </Link>
             ) : (
               <SignInButton mode="modal">
-                <button className="btn-primary neon-glow" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
-                  Take the Free Test Now <ChevronRight size={18} />
+                <button className="btn-primary">
+                  Start Your Assessment <ArrowRight size={15} />
                 </button>
               </SignInButton>
             )}
@@ -188,12 +192,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid hsl(var(--border))", padding: "2rem 1.5rem", textAlign: "center", color: "hsl(var(--muted-foreground))", fontSize: "0.875rem" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
-          <Brain size={16} style={{ color: "#7c6cff" }} />
-          <span>RealityGap — AI Skill Illusion Detector. Built to show you the truth.</span>
-        </div>
+      {/* ── FOOTER ── */}
+      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "2rem 1.5rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <span style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.25)", letterSpacing: "0.06em" }}>
+          © 2026 REALITYGAP — AI SKILL ILLUSION DETECTOR
+        </span>
       </footer>
     </div>
   );
